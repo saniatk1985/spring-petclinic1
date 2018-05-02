@@ -38,7 +38,7 @@ If everything is successful - you will see the PetClinic application on `$APP_VM
 
 - Fork the Application [repository](https://github.com/DmyMi/spring-petclinic) 
 
-- Setup Jenkins:
+- Setup Jenkins
         * Deploy Jenkins on AWS Instance or Local VM
         * Setup Jenkins plugins (credentials, ssh-credentials, git, maven-plugin, github, ec2, ssh-slaves)
         * Create Jenkins Pipeline Job from project (extra task: Describe job using **Job DSL** syntax to create jobs automatically)
@@ -47,7 +47,7 @@ If everything is successful - you will see the PetClinic application on `$APP_VM
         * Setup Maven global tools cofiguration
         * Make Sure the AWS Workers have other required tools (ansible, python, etc.)
         
-- Describe a pipleline to build and deploy the application:
+- Describe a pipleline to build and deploy the application
         * Create a **Jenkinsfile** in your project root directory
         * Create pipeline steps to: checkout project from repository, build the application and run tests.
         * Create a step to launch **2** Instances on AWS and wait for them to be fully operational. Use either aws-cli or boto3 library.
