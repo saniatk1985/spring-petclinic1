@@ -1,8 +1,8 @@
 pipeline {
     agent { label 'mvn-test' }
-    tools { 
-        maven 'Maven35'
-    }
+    // tools { 
+    //     maven 'Maven35'
+    // }
     stages {
         stage ('Build') {
                 steps {
