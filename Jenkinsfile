@@ -1,8 +1,7 @@
 pipeline {
     agent { label 'mvn-test' }
     tools { 
-        maven 'Maven35',
-        ansible 'ansible25'
+        maven 'Maven35'
     }
     stages {
         stage ('Build') {
