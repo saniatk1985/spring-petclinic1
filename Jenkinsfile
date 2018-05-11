@@ -22,6 +22,5 @@ pipeline {
                         colorized: true)
                 }
             }
-        }
     }
 }
