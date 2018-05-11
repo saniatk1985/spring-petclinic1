@@ -4,16 +4,16 @@ pipeline {
     //     maven 'Maven35'
     // }
     stages {
-        agent { label 'master' }
         stage ('Build') {
+            agent { label 'master' }
                 steps {
                     checkout scm
                     echo 'This is a minimal pipeline'
                     //sh 'mvn package'
                 }
         }
-        agent { label 'master' }
         stage ('Deploy EC2') {
+            agent { label 'master' }
                 steps {
                     ansiColor('xterm') {
                         ansiblePlaybook(
