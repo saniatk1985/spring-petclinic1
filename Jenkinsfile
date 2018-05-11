@@ -1,9 +1,10 @@
 pipeline {
-    agent { label 'mvn-test' }
+    agent none
     // tools { 
     //     maven 'Maven35'
     // }
     stages {
+        agent { label 'master' }
         stage ('Build') {
                 steps {
                     checkout scm
@@ -11,6 +12,7 @@ pipeline {
                     //sh 'mvn package'
                 }
         }
+        agent { label 'master' }
         stage ('Deploy EC2') {
                 steps {
                     ansiColor('xterm') {
