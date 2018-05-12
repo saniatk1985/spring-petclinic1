@@ -1,0 +1,77 @@
+---
+- hosts: localhost
+  connection: local
+  name: Install application
+  become: yes
+  gather_facts: false
+
+  pre_tasks:
+      - name: Install Python 2.x
+        raw: test -e /usr/bin/python || (apt update && apt install -y python-simplejson)
+        register: output
+        changed_when: output.stdout != ""
+      - name: Gathering Facts
+        setup:
+
+  tasks:
+      - name: Create a non root user
+        user:
+          name: "{{ lookup('env','APP_USER') }}"
+          password: "{{ lookup('env','APP_PASS') }}"
+
+      - name: Create a project directory
+        file:
+          path: "/home/{{ lookup('env','APP_USER') }}/{{ lookup('env','PROJECT_DIR' }}/"
+          state: directory
+          owner: "{{ lookup('env','APP_USER') }}"
+          group: "{{ lookup('env','APP_USER') }}"
+          mode: 0755
+        become_user: "{{ lookup('env','APP_USER') }}"
+
+      - name: Copy the jar file to the home folder
+        s3:
+          bucket: tlk-demo2
+          object: pc.jar
+          dest: "/home/{{ lookup('env','APP_USER') }}/"
+          mode: get
+        become_user: "{{ lookup('env','APP_USER') }}"
+
+      - name: Сheck if the java application is running
+        shell: 'ps aux | grep -v grep | grep "java -jar"'
+        register: java_run_status
+        ignore_errors : true
+        changed_when: false
+
+      - name: Run application
+        shell: 'java -jar *.jar &'
+        args:
+          chdir: "/home/{{ lookup('env','APP_USER') }}/"
+        become_user: "{{ lookup('env','APP_USER') }}"
+        async: 1000
+        poll: 0
+        when: not java_run_status.stdout
+
+      - name: Get my public IP from ipify.org
+        ipify_facts:
+        register: public_ip
+
+      - name: Wait for the application to start
+        wait_for:
+          timeout: 60
+          host: '{{ public_ip.ansible_facts.ipify_public_ip }}'
+          port: 8080
+        when: not java_run_status.stdout
+
+      - name: Application healthcheck
+        uri:
+          url: "http://{{ public_ip.ansible_facts.ipify_public_ip }}:8080/manage/health"
+          return_content: yes
+        register: health
+
+      - name: Сheck if the application is running on the port 8080
+        debug: msg='The application is running'
+        when: health.json.status == "UP"
+
+      - name: URL to the web aplication
+        debug: msg='{{ public_ip.ansible_facts.ipify_public_ip }}:8080'
+        when: health.json.status == "UP"
