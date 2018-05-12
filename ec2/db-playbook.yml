@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: localhost
   name: Install MySQL database
   become: yes
   gather_facts: false
