@@ -29,7 +29,7 @@ pipeline {
                 steps {
                     ansiColor('xterm') {
                         ansiblePlaybook(
-                            playbook: '/tmp/test.yml',
+                            playbook: '/home/ec2-user/test.yml',
                             //inventory: 'path/to/inventory.ini',
                             //credentialsId: 'sample-ssh-key',
                             colorized: true)
