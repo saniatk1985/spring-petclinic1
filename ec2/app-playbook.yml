@@ -21,7 +21,7 @@
 
       - name: Create a project directory
         file:
-          path: "/home/{{ lookup('env','APP_USER') }}/{{ lookup('env','PROJECT_DIR' }}/"
+          path: "/home/{{ lookup('env','APP_USER') }}/{{ lookup('env','PROJECT_DIR') }}/"
           state: directory
           owner: "{{ lookup('env','APP_USER') }}"
           group: "{{ lookup('env','APP_USER') }}"

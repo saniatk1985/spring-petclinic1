@@ -27,7 +27,7 @@ pipeline {
         // }
         
         stage ('Setup PC') {
-            agent { label 'bd-slave' }
+            agent { label 'app-slave' }
                 steps {
                     sh 'curl -O https://raw.githubusercontent.com/anatolek/spring-petclinic/master/ec2/app-playbook.yml'
                     ansiColor('xterm') {
