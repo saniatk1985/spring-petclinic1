@@ -64,7 +64,7 @@
           DB_HOST: '{{ db_host.stdout }}'
           DB_USER: "{{ lookup('env','APP_USER') }}"
           DB_PASS: "{{ lookup('env','APP_PASS') }}"
-          DB_NAME: "{{ lookup('env','APP_NAME') }}"'
+          DB_NAME: "{{ lookup('env','APP_NAME') }}"
           DB_PORT: "{{ lookup('env','APP_PORT') }}"
         when: not java_run_status.stdout
 
