@@ -20,7 +20,7 @@ pipeline {
                     sh 'curl -O https://raw.githubusercontent.com/anatolek/spring-petclinic/master/ec2/mysql.cnf.j2'
                     ansiColor('xterm') {
                         ansiblePlaybook(
-                            playbook: '/home/ubuntu/test.yml',
+                            playbook: 'db-playbook.yml',
                             colorized: true)
                     }
                 }
