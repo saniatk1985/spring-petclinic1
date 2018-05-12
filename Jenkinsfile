@@ -1,23 +1,15 @@
 pipeline {
     agent none
-    // tools { 
-    //     maven 'Maven35'
-    // }
-    // stages {
-    //     stage ('Build') {
-    //         agent { label 'mvn-test' }
-    //             steps {
-    //                 checkout scm
-    //                 sh 'mvn package'
-    //                 sh 'aws s3 cp target/*.jar s3://tlk-demo2/pc.jar'
-    //             }
-    //     }
-    
+    tools { 
+        maven 'Maven35'
+    }
     stages {
         stage ('Build') {
-            agent { label 'master' }
+            agent { label 'mvn-test' }
                 steps {
-                    sh 'aws s3 ls'
+                    checkout scm
+                    sh 'mvn package'
+                    sh 'aws s3 cp target/*.jar s3://tlk-demo2/pc.jar'
                 }
         }
 
