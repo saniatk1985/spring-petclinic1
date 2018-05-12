@@ -42,6 +42,13 @@
         ignore_errors : true
         changed_when: false
 
+      - name: Get DB IP address
+        shell: "aws ec2 describe-instances --query 'Reservations[*].Instances[?Tags[0].Value==\"jenkins-slave-bd\"].PrivateIpAddress' --output=text"
+        register: db_host
+        
+      - name: debug
+        debug: msg="{{ db_host }}"
+
       - name: Run application
         shell: 'java -jar *.jar &'
         args:
@@ -49,6 +56,8 @@
         become_user: "{{ lookup('env','APP_USER') }}"
         async: 1000
         poll: 0
+        environment:
+          DB_HOST: '{{ db_host.stdout }}'
         when: not java_run_status.stdout
 
       - name: Get my public IP from ipify.org

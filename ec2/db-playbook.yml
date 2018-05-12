@@ -71,3 +71,12 @@
             login_port: "{{ lookup('env','DB_PORT') | int }}"
             name: "{{ lookup('env','DB_NAME') }}"
             state: present
+
+      # - name: Get local IP address
+      #   shell: "curl http://169.254.169.254/latest/meta-data/local-ipv4"
+      #   register: local-ipv4
+
+      # - name: Add ip instance to inventory
+      #   add_host:
+      #     hostname: local-ipv4.stdout
+      #     groups: db_local_ip
