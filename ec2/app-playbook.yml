@@ -37,7 +37,7 @@
           AWS_SECRET_ACCESS_KEY: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
 
       - name: Сheck if the java application is running
-        shell: 'ps aux | grep -v grep | grep "java -jar"'
+        shell: 'ps aux | grep -v grep | grep "java -jar /home"'
         register: java_run_status
         ignore_errors : true
         changed_when: false
