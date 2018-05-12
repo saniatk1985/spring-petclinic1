@@ -29,11 +29,7 @@
         become_user: "{{ lookup('env','APP_USER') }}"
 
       - name: Copy the jar file to the home folder
-        s3:
-          bucket: tlk-demo2
-          object: pc.jar
-          dest: "/home/{{ lookup('env','APP_USER') }}/"
-          mode: get
+        shell: "aws s3 cp s3://tlk-demo2/pc.jar /home/{{ lookup('env','APP_USER') }}/"
         become_user: "{{ lookup('env','APP_USER') }}"
 
       - name: Сheck if the java application is running
