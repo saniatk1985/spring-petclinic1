@@ -49,7 +49,7 @@
             name: "{{ lookup('env','DB_USER') }}"
             host: "{{ lookup('env','DB_REMOTE_USER_HOST') }}"
             password: "{{ lookup('env','DB_PASS') }}"
-            priv: "{{ lookup('env','DB_NAME') }}.*:ALL,GRANT"
+            priv: "{{ lookup('env','DB_NAME') }}".*:ALL,GRANT
             state: present
 
       - name: Copy global cnf file
