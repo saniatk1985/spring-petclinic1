@@ -14,7 +14,7 @@ pipeline {
         // }
 
         stage ('Setup BD') {
-            agent { label 'bd-slave' }
+            agent { label 'db-slave' }
                 steps {
                     sh 'curl -O https://raw.githubusercontent.com/anatolek/spring-petclinic/master/ec2/db-playbook.yml'
                     sh 'curl -O https://raw.githubusercontent.com/anatolek/spring-petclinic/master/ec2/mysql.cnf.j2'
