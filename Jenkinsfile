@@ -16,8 +16,8 @@ pipeline {
         stage ('Setup BD') {
             agent { label 'bd-slave' }
                 steps {
-                    sh 'curl -o https://raw.githubusercontent.com/anatolek/spring-petclinic/master/ec2/db-playbook.yml'
-                    sh 'curl -o https://raw.githubusercontent.com/anatolek/spring-petclinic/master/ec2/mysql.cnf.j2'
+                    sh 'curl -O https://raw.githubusercontent.com/anatolek/spring-petclinic/master/ec2/db-playbook.yml'
+                    sh 'curl -O https://raw.githubusercontent.com/anatolek/spring-petclinic/master/ec2/mysql.cnf.j2'
                     ansiColor('xterm') {
                         ansiblePlaybook(
                             playbook: '/home/ubuntu/test.yml',
