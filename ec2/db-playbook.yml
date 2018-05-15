@@ -70,6 +70,7 @@
         register: gcnf
         environment:
           DB_HOST: db_host.stdout
+          DB_PORT: "{{ lookup('env','DB_PORT') | int }}"
 
       - name: Restart MySQL server
         become: true
