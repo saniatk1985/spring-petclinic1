@@ -45,7 +45,7 @@ pipeline {
                                     playbook: 'app-playbook.yml',
                                     colorized: true)
                             }
-                            sh 'aws s3 mv s3://tlk-demo2/pc.jar s3://tlk-demo2/pc-${BUILD_NUMBER}.jar'
+                            sh 'aws s3 mv s3://tlk-demo2/pc.jar s3://tlk-demo2/pc-${BUILD_ID}-{GIT_COMMIT}.jar'
                         }
                 }
 
