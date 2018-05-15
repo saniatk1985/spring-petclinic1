@@ -53,11 +53,7 @@ pipeline {
         stage ('Terminate instances') {
             agent { label 'master' }
                 steps {
-                    sh """for i in $(aws ec2 describe-instances \
-                        --filters 'Name=tag:Name,Values=jenkins-slave*' \
-                        --query 'Reservations[*].Instances[*].InstanceId' \
-                        --output=text); do aws ec2 terminate-instances \
-                        --instance-ids $i; done"""
+                    sh "for i in $(aws ec2 describe-instances --filters 'Name=tag:Name,Values=jenkins-slave*' --query 'Reservations[*].Instances[*].InstanceId' --output=text); do aws ec2 terminate-instances --instance-ids $i; done"
                 }
         }
     }
