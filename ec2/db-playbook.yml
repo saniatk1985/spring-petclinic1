@@ -69,7 +69,10 @@
             dest: /etc/mysql/my.cnf
         register: gcnf
         environment:
-        #   DB_HOST: db_host.stdout
+           DB_HOST: db_host.stdout
+           
+      - name: debug1
+        debug: msg="{{ gcnf }}"
 
       - name: Restart MySQL server
         become: true
