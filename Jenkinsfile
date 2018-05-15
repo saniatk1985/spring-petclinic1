@@ -57,7 +57,7 @@ pipeline {
                     --filters 'Name=tag:Name,Values=jenkins-slave*' \
                     --query 'Reservations[*].Instances[*].InstanceId' \
                     --output=text); do aws ec2 terminate-instances \
-                    --instance-ids \$i; done""
+                    --instance-ids \$i; done"""
                 }
         }
     }
