@@ -14,8 +14,7 @@ pipeline {
                     checkout scm
                     sh 'mvn package'
                     sh 'aws s3 cp target/*.jar s3://tlk-demo2/pc.jar'
-                    sh """aws ec2 terminate-instances --instance-ids \
-                        $(curl -s http://169.254.169.254/latest/meta-data/instance-id)"""
+                    sh "aws ec2 terminate-instances --instance-ids $(curl -s http://169.254.169.254/latest/meta-data/instance-id)"
                 }
         }
         stage('Integration Test') {
