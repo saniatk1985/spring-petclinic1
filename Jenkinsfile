@@ -14,7 +14,8 @@ pipeline {
                     checkout scm
                     sh 'mvn package'
                     sh 'aws s3 cp target/*.jar s3://tlk-demo2/pc.jar'
-                    sh "aws ec2 terminate-instances --instance-ids $(curl -s http://169.254.169.254/latest/meta-data/instance-id)"
+                    sh """aws ec2 terminate-instances --instance-ids \
+                        \$(curl -s http://169.254.169.254/latest/meta-data/instance-id)"""
                 }
         }
         stage('Integration Test') {
@@ -52,7 +53,11 @@ pipeline {
         stage ('Terminate instances') {
             agent { label 'master' }
                 steps {
-                    sh "for i in $(aws ec2 describe-instances --filters 'Name=tag:Name,Values=jenkins-slave*' --query 'Reservations[*].Instances[*].InstanceId' --output=text); do aws ec2 terminate-instances --instance-ids $i; done"
+                    sh """for i in $(aws ec2 describe-instances \
+                    --filters 'Name=tag:Name,Values=jenkins-slave*' \
+                    --query 'Reservations[*].Instances[*].InstanceId' \
+                    --output=text); do aws ec2 terminate-instances \
+                    --instance-ids \$i; done""
                 }
         }
     }
