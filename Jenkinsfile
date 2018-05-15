@@ -35,18 +35,18 @@ pipeline {
                         }
                 }
 
-                stage ('Setup APP instance') {
-                    agent { label 'app-slave' }
-                        steps {
-                            sh 'curl -O https://raw.githubusercontent.com/anatolek/spring-petclinic/master/ec2/app-playbook.yml'
-                            ansiColor('xterm') {
-                                ansiblePlaybook(
-                                    playbook: 'app-playbook.yml',
-                                    colorized: true)
-                            }
-                            sh 'aws s3 cp pc.jar s3://tlk-demo2/pc-${BUILD_NUMBER}.jar'
-                        }
-                }
+                // stage ('Setup APP instance') {
+                //     agent { label 'app-slave' }
+                //         steps {
+                //             sh 'curl -O https://raw.githubusercontent.com/anatolek/spring-petclinic/master/ec2/app-playbook.yml'
+                //             ansiColor('xterm') {
+                //                 ansiblePlaybook(
+                //                     playbook: 'app-playbook.yml',
+                //                     colorized: true)
+                //             }
+                //             sh 'aws s3 cp pc.jar s3://tlk-demo2/pc-${BUILD_NUMBER}.jar'
+                //         }
+                // }
 
             }
         }
