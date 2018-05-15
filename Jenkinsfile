@@ -6,7 +6,7 @@ pipeline {
     //     maven 'Maven35'
     // }
 
-    // stages {
+    stages {
 
     //     stage ('Build') {
     //         agent { label 'mvn-test' }
