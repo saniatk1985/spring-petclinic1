@@ -69,13 +69,13 @@
             dest: /etc/mysql/my.cnf
         register: gcnf
         environment:
-           DB_HOST: {{ db_host.stdout }}
+           DB_HOST: "{{ db_host.stdout }}"
            
       - name: EV
         shell: "echo $DB_HOST"
         register: dh
         environment:
-           DB_HOST: {{ db_host.stdout }}
+           DB_HOST: "{{ db_host.stdout }}"
       
       - name: debug1
         debug: msg="{{ dh }}"
