@@ -50,8 +50,14 @@
           AWS_SECRET_ACCESS_KEY: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
         register: db_host
         
-      - name: debug
-        debug: msg="{{ db_host.stdout }}"
+      - name: Wait for DB to become ready
+        wait_for:
+          host: '{{ db_host.stdout }}'
+          port: 3306
+          state: started
+          delay: 5
+          connect_timeout: 15
+          timeout: 180
 
       - name: Run application
         shell: 'java -jar *.jar &'
@@ -87,8 +93,4 @@
 
       - name: Сheck if the application is running on the port 8080
         debug: msg='The application is running'
-        when: health.json.status == "UP"
-
-      - name: URL to the web aplication
-        debug: msg='{{ public_ip.ansible_facts.ipify_public_ip }}:8080'
         when: health.json.status == "UP"

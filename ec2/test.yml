@@ -1,4 +1,0 @@
----
-- hosts: example
-  tasks:
-    - debug: msg="{{ lookup('env','USER') }}. Hello!!!"
