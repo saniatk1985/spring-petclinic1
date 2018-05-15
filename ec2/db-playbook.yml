@@ -70,15 +70,6 @@
         register: gcnf
         environment:
            DB_HOST: "{{ db_host.stdout }}"
-           
-      - name: EV
-        shell: "echo $DB_HOST"
-        register: dh
-        environment:
-           DB_HOST: "{{ db_host.stdout }}"
-      
-      - name: debug1
-        debug: msg="{{ dh }}"
 
       - name: Restart MySQL server
         become: true

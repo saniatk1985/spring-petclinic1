@@ -16,7 +16,7 @@ datadir                 = /var/lib/mysql
 tmpdir                  = /tmp
 language                = /usr/share/mysql/english
 old_passwords           = 0
-bind-address            = {{ lookup('env','DB_HOST') }}
+bind-address            = "{{ lookup('env','DB_HOST') }}"
 
 skip-external-locking
 
