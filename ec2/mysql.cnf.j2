@@ -1,3 +1,4 @@
+{% set ip = salt['network.ip_addrs']('eth0')[0] %}
 [client]
 port                    = {{ lookup('env','DB_PORT') }}
 socket                  = /var/run/mysqld/mysqld.sock
@@ -16,7 +17,7 @@ datadir                 = /var/lib/mysql
 tmpdir                  = /tmp
 language                = /usr/share/mysql/english
 old_passwords           = 0
-bind-address            = {{ lookup('env','DB_HOST') }}
+bind-address            = {{ ip }}
 
 skip-external-locking
 
