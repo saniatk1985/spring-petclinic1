@@ -49,7 +49,7 @@
           AWS_DEFAULT_REGION: "{{ lookup('env','AWS_DEFAULT_REGION') }}"
           AWS_SECRET_ACCESS_KEY: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
         register: db_host
-        
+
       - name: Wait for DB to become ready
         wait_for:
           host: '{{ db_host.stdout }}'

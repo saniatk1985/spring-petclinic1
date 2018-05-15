@@ -44,6 +44,7 @@ pipeline {
                                     playbook: 'app-playbook.yml',
                                     colorized: true)
                             }
+                            sh 'aws s3 cp pc.jar s3://tlk-demo2/pc-${BUILD_NUMBER}.jar'
                         }
                 }
 
