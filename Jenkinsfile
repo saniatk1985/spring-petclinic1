@@ -2,14 +2,11 @@ pipeline {
 
     agent none
 
-    tools { 
-        maven 'Maven35'
-    }
-
     stages {
 
         stage ('Build') {
             agent { label 'mvn-test' }
+            tools { maven 'Maven35' }
                 steps {
                     checkout scm
                     sh 'mvn package'
